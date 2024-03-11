@@ -7,10 +7,12 @@ import Service from './pages/Service'
 import Map from './pages/Map'
 import About_Us from './pages/About_Us'
 import Dashboard from './pages/Dashboard'
+import Header from './components/Header'
 
 export default function App() {
   return (
     <BrowserRouter>
+    <Header/>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/About-Us" element={<About_Us />} />
