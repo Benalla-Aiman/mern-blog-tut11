@@ -34,7 +34,7 @@ export default function Header() {
         <Link to='/sign-in'>
           <Button color='gray' className=' from-red-600 to-blue-800 bg-gradient-to-r bg-clip-text text-transparent'>Sign In</Button>
         </Link>
-        <Navbar.Toggle />
+        <Navbar.Toggle  />
       </div>
       <Navbar.Collapse>
         <Navbar.Link active={path === "/"} as={'div'}>
