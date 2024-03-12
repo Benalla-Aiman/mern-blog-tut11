@@ -8,6 +8,7 @@ import Map from './pages/Map'
 import About_Us from './pages/About_Us'
 import Dashboard from './pages/Dashboard'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
       <Route path="/Map" element={<Map />} />
       <Route path="/Dashboard" element={<Dashboard />} />
     </Routes>
+    <Footer/>
     </BrowserRouter>
   )
 }
