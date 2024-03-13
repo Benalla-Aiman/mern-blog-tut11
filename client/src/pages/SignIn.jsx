@@ -2,12 +2,14 @@ import React from "react";
 import logo from "../assets/logo-slogan.svg";
 import { Link, useNavigate} from "react-router-dom";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { useDispatch , useSelector} from "react-redux";
+import { signInStart,signInSuccess, signInFailure } from "../redux/user/userSlice";
 
 export default function SignIn() {
   const [formData, setFormData] = React.useState({});
 
-  const [errorMessage, setErrorMessage] = React.useState(null); // this is to track the error message that will be returned from the server if the user already exists in the database
-  const [loading, setLoading] = React.useState(false); // this is to track the loading state of the form
+  const {loading, error : errorMessage} = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   {
@@ -28,7 +30,7 @@ export default function SignIn() {
       /*this prevents the default behavior of form submission. In other words, it stops the browser from reloading the page when the form is submitted.*/
     }
     if (!formData.email || !formData.password) {
-      return setErrorMessage("Please fill in all fields");
+      return dispatch(signInFailure("Please fill in all fields"));
     }
     try {
       {
@@ -37,8 +39,7 @@ export default function SignIn() {
       The server will then parse the JSON string and use the data to create a new user in the database.
     */
       }
-      setLoading(true);
-      setErrorMessage(null);
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -46,14 +47,16 @@ export default function SignIn() {
       });
       const data = await res.json();
       if (data.success == false) {
-        return setErrorMessage(data.message);
+        dispatch(signInFailure(data.message));
       }
-      setLoading(false);
       {/**/}
       if(res.ok){
+        dispatch(signInSuccess(data));
         navigate("/");
       }
-    } catch (error) {}
+    } catch (error) {
+      dispatch(signInFailure(error.message));
+    }
   };
   return (
     <div className="min-h-screen mt-20">
