@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../assets/logo-slogan.svg";
 import { Link, useNavigate} from "react-router-dom";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import OAuth from "../components/OAuth";
 
 export default function SignUp() {
   const [formData, setFormData] = React.useState({});
@@ -115,6 +116,7 @@ export default function SignUp() {
                 "Sign Up"
               )}
             </Button>
+            <OAuth/>
           </form>
 
           <div className="flex gap-2 text-sm mt-5">
